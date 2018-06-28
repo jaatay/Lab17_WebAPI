@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using ToDoAPI.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace ToDoAPI
 {
@@ -27,8 +28,10 @@ namespace ToDoAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-			services.AddDbContext<ToDoContext>(Options => Options.UseInMemoryDatabase("TodoList"));
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+			services.AddMvc();
+			services.AddDbContext<ToDoContext>(options => options
+			.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,11 +43,13 @@ namespace ToDoAPI
             }
             else
             {
-                app.UseHsts();
-            }
+				app.UseMvcWithDefaultRoute();
+			}
 
-            app.UseHttpsRedirection();
-            app.UseMvc();
-        }
+			app.Run(async (context) =>
+			{
+				await context.Response.WriteAsync("Hello World!");
+			});
+		}
     }
 }
