@@ -37,18 +37,18 @@ namespace ToDoAPI
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-				app.UseMvcWithDefaultRoute();
+
+			if (env.IsDevelopment())
+			{
+				app.UseDeveloperExceptionPage();
 			}
+
+				app.UseMvcWithDefaultRoute();
+			
 
 			app.Run(async (context) =>
 			{
-				await context.Response.WriteAsync("Hello World!");
+				await context.Response.WriteAsync("To do list API. Use with a front-end application, Postman or Curl.");
 			});
 		}
     }

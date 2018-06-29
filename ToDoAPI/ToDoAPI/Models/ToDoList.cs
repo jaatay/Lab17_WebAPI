@@ -5,12 +5,10 @@ using System.Threading.Tasks;
 
 namespace ToDoAPI.Models
 {
-    public class ToDoItem
+    public class ToDoList
     {
 		public int ID { get; set; }
 		public string Name { get; set; }
-		public bool IsComplete { get; set; }
-		public int ListID { get; set; }
-		public string ListName { get; set; }
+		public List<ToDoItem> ItemList { get; set; }
     }
 }

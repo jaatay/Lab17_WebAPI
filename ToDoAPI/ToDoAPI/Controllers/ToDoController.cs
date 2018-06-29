@@ -32,11 +32,24 @@ namespace TodoApi.Controllers
 		[HttpGet("{id}", Name = "GetToDo")]
 		public ActionResult<ToDoItem> GetByID(int id)
 		{
-			var item = _context.ToDoItems.Find(id);
-			if(item == null)
+			var item = _context.ToDoItems.FirstOrDefault(x=> x.ID == id);
+			var itemList = _context.ToDoLists.FirstOrDefault(x => x.ID == item.ListID);
+
+
+			if (item == null)
 			{
 				return NotFound();
 			}
+
+			if (item.ListID == 0)
+			{
+				item.ListName = "Not currently in a list.";
+			} else
+			{
+				item.ListName = itemList.Name;
+			}
+
+			
 			return item;
 		}
 
@@ -60,6 +73,7 @@ namespace TodoApi.Controllers
 
 			todo.IsComplete = item.IsComplete;
 			todo.Name = item.Name;
+			todo.ListID = item.ListID;
 
 			_context.ToDoItems.Update(todo);
 			_context.SaveChanges();
