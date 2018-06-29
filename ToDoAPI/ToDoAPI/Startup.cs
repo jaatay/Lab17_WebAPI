@@ -48,7 +48,7 @@ namespace ToDoAPI
 
 			app.Run(async (context) =>
 			{
-				await context.Response.WriteAsync("To do list API. Use with a front-end application, Postman or Curl.");
+				await context.Response.WriteAsync("To do list API. Use with a front-end application, Postman or Curl. Endpoints: /api, api/todo, api/todolist, api/todo/{id}, api/todolist{id}");
 			});
 		}
     }

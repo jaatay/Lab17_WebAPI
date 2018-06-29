@@ -72,12 +72,19 @@ namespace ToDoAPI.Controllers
 		public IActionResult Delete(int id)
 		{
 			var todo = _context.ToDoLists.Find(id);
+			var todoItems = _context.ToDoItems.Where(x => x.ListID == id).ToList();
 			if (todo == null)
 			{
 				return NotFound();
 			}
 
 			_context.ToDoLists.Remove(todo);
+
+			foreach(var item in todoItems)
+			{
+				_context.ToDoItems.Remove(item);
+			}
+			
 			_context.SaveChanges();
 			return NoContent();
 		}
