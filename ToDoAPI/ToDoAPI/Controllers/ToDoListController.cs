@@ -34,11 +34,12 @@ namespace ToDoAPI.Controllers
 			var toDoItem = _context.ToDoItems.Where(x => x.ListID == id).ToList();
 			var item =  _context.ToDoLists.Find(id);
 
-			item.ItemList = toDoItem;
 			if (item == null)
 			{
 				return NotFound();
 			}
+
+			item.ItemList = toDoItem;
 			return item;
 		}
 
