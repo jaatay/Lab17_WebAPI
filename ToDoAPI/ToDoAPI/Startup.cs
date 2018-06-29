@@ -18,11 +18,18 @@ namespace ToDoAPI
 {
     public class Startup
     {
+		/// <summary>
+		/// interface configuration of a configuration. This configures the configuration in order to configure with an interface.
+		/// </summary>
+		/// <param name="configuration">interface configuration to be methodically configured through configuration reassignment</param>
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
+		/// <summary>
+		/// this pairs with the above, like red wine with steak
+		/// </summary>
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -45,7 +52,7 @@ namespace ToDoAPI
 
 				app.UseMvcWithDefaultRoute();
 			
-
+			//default
 			app.Run(async (context) =>
 			{
 				await context.Response.WriteAsync("To do list API. Use with a front-end application, Postman or Curl. Endpoints: /api, api/todo, api/todolist, api/todo/{id}, api/todolist{id}");

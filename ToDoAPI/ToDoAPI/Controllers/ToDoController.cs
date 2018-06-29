@@ -9,8 +9,15 @@ namespace TodoApi.Controllers
 	[ApiController]
 	public class ToDoController : ControllerBase
 	{
+		/// <summary>
+		/// private property to use ToDoContext in controller
+		/// </summary>
 		private readonly ToDoContext _context;
 
+		/// <summary>
+		/// initialize controller, if no items exist in to do list sets default item
+		/// </summary>
+		/// <param name="context"></param>
 		public ToDoController(ToDoContext context)
 		{
 			_context = context;
@@ -22,6 +29,10 @@ namespace TodoApi.Controllers
 			}
 		}
 
+		/// <summary>
+		/// method to get all to do items
+		/// </summary>
+		/// <returns>list of all items</returns>
 		[HttpGet]
 		public ActionResult<List<ToDoItem>> GetAll()
 		{
@@ -29,6 +40,11 @@ namespace TodoApi.Controllers
 			return _context.ToDoItems.ToList();
 		}
 
+		/// <summary>
+		/// method to get all items by id, and link with to do list
+		/// </summary>
+		/// <param name="id">integer of id to search for</param>
+		/// <returns>requested item, or not found if no items</returns>
 		[HttpGet("{id}", Name = "GetToDo")]
 		public ActionResult<ToDoItem> GetByID(int id)
 		{
@@ -53,6 +69,11 @@ namespace TodoApi.Controllers
 			return item;
 		}
 
+		/// <summary>
+		/// method to create a new item
+		/// </summary>
+		/// <param name="item">item to create, corresponding to body to pass in JSON</param>
+		/// <returns>new item to database</returns>
 		[HttpPost]
 		public IActionResult Create(ToDoItem item)
 		{
@@ -62,6 +83,12 @@ namespace TodoApi.Controllers
 			return CreatedAtRoute("GetToDo", new { id = item.ID }, item);
 		}
 
+		/// <summary>
+		/// update an existing item
+		/// </summary>
+		/// <param name="id">integer primary key of item to be updated</param>
+		/// <param name="item">body information to update item</param>
+		/// <returns>not found if unsuccessful, or item to database</returns>
 		[HttpPut("{id}")]
 		public IActionResult Update(int id, ToDoItem item)
 		{
@@ -77,9 +104,14 @@ namespace TodoApi.Controllers
 
 			_context.ToDoItems.Update(todo);
 			_context.SaveChanges();
-			return NoContent();
+			return Ok();
 		}
 
+		/// <summary>
+		/// method to delete item
+		/// </summary>
+		/// <param name="id">integer primary key of item</param>
+		/// <returns>not found or no content status</returns>
 		[HttpDelete("{id}")]
 		public IActionResult Delete(int id)
 		{

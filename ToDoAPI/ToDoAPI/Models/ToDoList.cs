@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace ToDoAPI.Models
 {
+	//model infromation to create a to do list
     public class ToDoList
     {
 		public int ID { get; set; }

@@ -8,6 +8,10 @@ namespace ToDoAPI.Models
 {
     public class ToDoContext: DbContext
     {
+		/// <summary>
+		/// db context, because context
+		/// </summary>
+		/// <param name="options">options to be used with DBContext</param>
 		public ToDoContext(DbContextOptions<ToDoContext>options) : base(options)
 		{
 
