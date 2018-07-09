@@ -34,17 +34,33 @@ To get a list is the same process as getting an item. The only difference is tha
 
 ![Site screenshot](GetItem.jpg)
 
-To get a specific item or list, you append the ID number to the URL, as seen above.
+To get a specific item or list, you append the ID number to the URL, as seen above. In the example, we are simply returning the response body for list item 1. You will see in the bottom window in postman a status signaling "Ok." If you get a "Status 400 bad request," it means that something in the request you sent was incorrect. This is likely due to something misttyped in the URL. If you get a code stating "No content" it means the ID you requested does not exist. In order to see the available lists or items, use a get command without an ID set to return the available items.
 
 ### How to Post or Put of a specific item or list
 
+Both a put or post command will either create or update a list. The main difference is a POST is used when you are creating a new entry, and a PUT is used when you are updating an existing entry. In the example below we are updating one of the list items. To do so, you change the command in Postman to PUT, then in the PARAMS section, enter the information as you would like it changed. In the example we are changing the todo item to complete by adjusting the boolean value to "true." 
 ![Site screenshot](PutBefore.jpg)
+
+Once you run the command, you will see in the bottom output window a "Ok" status as shown below.
 ![Site screenshot](PutAfter.jpg)
+
+One thing to remember is if you are running a PUT command to update an existing entry, you MUST include the ID of the entry that you are trying to adjust. If you enter a request body without an ID, it will create a new entry. If you are trying to create a new entry, use a POST command in the dropdown box, then enter the request body without an ID. The reason for this is the API is stored in a database, and each ID corresponds to a database PRIMARY KEY for the entry. The database will automatically set the ID when a new entry is created.
 
 ### How to Delete a item or list
 
+To DELETE a item or list it is much the same as a PUT or POST. You select the DELETE option from the Postman dropdown box, then make sure the URL is set to the ID of the entry that you wish to delete, as seen below.
 ![Site screenshot](DeleteBefore.jpg)
+
+After you run the command you will notice a blank box in Postman for the response body, along with the message "No content." That is ok, that means the item you selected was indeed deleted, as shown below.
 ![Site screenshot](DeleteAfter.jpg)
+
+However, it is always a good idea to confirm that the entry is actually deleted. In the below screenshot, a GET request was run for all the items, just to confirm that the object with the ID and body of the entry that was deleted no longer exists.
 ![Site screenshot](DeleteAfterList.jpg)
+
+### Summing it up
+
+To recap, you can perform all the Create, Read, Update, or Delete commands with this API. However, since it has no front-end, you need to either make your own, or use a program like Postman(which is featured in the examples), or Curl(if you like to stick to the command line). Then it is simply a matter of setting the correct URL and performing the operation. In all cases you will receive a response body from the API, which will contain a status message that the operation was successfully performed, or that something went wrong. If something does go wrong, check that the URL you entered is correct, or that the request body matches the JSON format the API is expecting. The response body (with the exception of the DELETE which returns no body) is a JSON object which can be parsed and used in your own front-end applications. 
+
+Happy coding!
 ## Licensing
 This program is used with a MIT license.
